@@ -1,0 +1,15 @@
+<div *ngIf="hero">
+    <h2>{{ hero.name | uppercase }} Details</h2>
+
+    <div>
+      <span>id: </span>{{ hero.id }}
+    </div>
+
+    <div>
+      <label> name:
+        <input [(ngModel)] = "hero.name" placeholdes = "name"> <!-- [(ngModel)] permite que o conteudo do text box se conect com hero.name em ambos sentidos-->
+      </label>
+    </div>
+ </div>
+ <button (click) = "goBack()">Voltar</button>
+
