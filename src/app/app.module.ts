@@ -11,8 +11,16 @@ import { HeroDetailComponent } from './hero-detail/hero-detail.component';//<-- 
 import { HeroService } from './hero.service';
 import { MessagesComponent } from './messages/messages.component';
 import { MessageService } from './message.service';
-import { AppRoutingModule } from './/app-routing.module';
+import { AppRoutingModule } from './app-routing.module';
 import { DashboardComponent } from './dashboard/dashboard.component';
+import { HeroSearchComponent } from './hero-search/hero-search.component';
+
+import { NgbModule } from "@ng-bootstrap/ng-bootstrap";
+
+import {AccordionModule} from 'primeng/accordion';     //importes sobre paginação
+import {TableModule} from 'primeng/table';
+import {MenuItem} from 'primeng/api';                 //api
+import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 
 
 @NgModule({
@@ -21,10 +29,14 @@ import { DashboardComponent } from './dashboard/dashboard.component';
     HeroesComponent,
     HeroDetailComponent,
     MessagesComponent,
-    DashboardComponent
+    DashboardComponent,
+    HeroSearchComponent
   ],
   imports: [
+    NgbModule.forRoot(),
     BrowserModule,
+    TableModule,
+    BrowserAnimationsModule,
     FormsModule,
     AppRoutingModule,
     HttpClientModule,

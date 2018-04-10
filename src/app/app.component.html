@@ -1,15 +1,47 @@
 <!--The content below is only a placeholder and can be replaced.-->
-<div style="text-align:center">
-  <h1>
-    {{title}}<!--'{{' referencia o campo title do app.component.ts --><h1></h1>
-  </h1>
-</div>
-<nav>
-  <div>
-      <a routerLink="/dashboard">Dashboard</a>
-      <a routerLink="/heroes">Heróis</a>
-  </div>
-</nav>
-<router-outlet></router-outlet> <!-- o router dirá quando deve aparecer o heroes-->
-<app-messages></app-messages>
 
+<html>
+
+  <body>
+    <div class="container">
+
+      <div class = "row">
+        <div class = "col">
+          <div style="text-align:center">
+            <h1>
+                {{title}}<!--'{{' referencia o campo title do app.component.ts -->
+            </h1>
+          </div>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class = "col">
+          <nav class="navbar navbar-expand-lg navbar-light bg-light">
+              <a class="navbar-brand" href="#">Tour dos Heróis</a>
+              <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarText" aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+              </button>
+              <div class="collapse navbar-collapse" id="navbarText">
+                <ul class="navbar-nav mr-auto">
+                  <li class="nav-item active">
+                    <a class="nav-link" routerLink="/dashboard">Dashboard</a>
+                  </li>
+                  <li class="nav-item">
+                      <a class="nav-link" routerLink="/heroes">Heróis</a>
+                  </li>
+                </ul>
+                <span class="navbar-text">
+                  Um tour pelos heróis
+                </span>
+              </div>
+            </nav>
+        </div>
+      </div>
+
+      <router-outlet></router-outlet>
+      <app-messages></app-messages>
+    </div>
+  </body>
+
+</html>

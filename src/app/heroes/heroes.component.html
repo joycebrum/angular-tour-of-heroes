@@ -1,8 +1,105 @@
-<h2> Meus Heróis </h2>
-<ul class="heroes">
-  <li *ngFor="let hero of heroes">
-    <a routerLink="/detail/{{hero.id}}">
-      <span class = "badge">{{hero.id}}</span>{{hero.name}}
-    </a>
-  </li>
-</ul>
+<div class= "row" class="espacamento">
+  <div class = "col">
+      <h2> Meus Heróis </h2>
+  </div>
+</div>
+
+<div class = "row" style="padding: 0 0 0 1em">
+  <div class = "col">
+    <label>Nome do Herói
+      <input #heroName />
+    </label>
+    <!-- (click) passes input value to add() and then clears the input -->
+    <button class="btn btn-success" (click) = "add(heroName.value); heroName.value=''">
+      Adiciona
+    </button>
+  </div>
+</div>
+
+<div class="row" class="espacamento">
+  <div class="col">
+    <app-hero-search></app-hero-search>
+  </div>
+</div>
+
+<!-- tabela-->
+<div class =  "row" class="espacamento">
+  <div class = "col">
+   <h3 class="first">Virtual Table Heroes</h3>
+      <p-table #dt [columns]="cols" [value]="virtualHeroes" class="table table-hover"
+        [(selection)]="selectedHeroes" dataKey="id"
+        [scrollable]="true" scrollHeight="200px"
+        [virtualScroll]="true" (onLazyLoad)="loadDataOnScroll2($event)" [lazy]="true" [totalRecords]="totalRecordsHeroes" [rows]="10"
+        [resizableColumns]="true">
+
+        <ng-template pTemplate="caption">
+            <div style="text-align: right">
+                <i class="fa fa-search" style="margin:4px 4px 0 0"></i>
+                <input type="text" pInputText size="50" placeholder="Global Filter" (input)="dt.filterGlobal($event.target.value, 'contains')" style="width:auto">
+            </div>
+        </ng-template>
+
+        <ng-template pTemplate="colgroup" let-columns>
+          <colgroup>
+            <col *ngFor="let col of columns">
+          </colgroup>
+        </ng-template>
+
+        <ng-template pTemplate="header" let-columns>
+            <tr>
+                <th style="width: 2.25em" pResizableColumn>
+                  <p-tableHeaderCheckbox></p-tableHeaderCheckbox>
+                </th>
+                <th *ngFor="let col of columns" pResizableColumn>
+                    {{col.header}}
+                </th>
+            </tr>
+            <tr>
+              <th></th>
+              <th *ngFor="let col of columns" [ngSwitch]="col.field">
+                <input #searchBox *ngSwitchCase="'name'" pInputText type="text" (input)="dt.filter($event.target.value,col.field,col.filterMatchMode)"
+                (keyup)="search(searchBox.value)">
+              </th>
+            </tr>
+        </ng-template>
+
+        <ng-template pTemplate="body" let-rowData let-columns="columns">
+            <tr [pSelectableRow]="rowData">
+
+                <td class="checkBox">
+                  <p-tableCheckbox [value] = "rowData"></p-tableCheckbox>
+                </td>
+
+                <td *ngFor="let col of columns" class="ui-resizable-column" (click)="MudaRota(rowData)">
+                  <a routerLink = "/detail/{{rowData.id}}">
+                    {{rowData[col.field]}}
+                  </a>
+                </td>
+
+            </tr>
+        </ng-template>
+
+        <ng-template pTemplate="summary" let-rowData>
+          <p>Total de heróis = {{heroes.length}}</p>
+          <p>Heróis Selecionados</p>
+          <ul>
+            <li *ngFor="let hero of selectedHeroes" style = "text-align:left">
+              {{hero.id + ' - ' + hero.name}}
+            </li>
+          </ul>
+          <!--<button title= "Deletar" (click) = "delete()">Delete</button>-->
+          <ng-container *ngIf="selectedHeroes.length!==1; then thenTemplate; else elseTemplate"></ng-container>
+          <ng-template #thenTemplate>
+              <button type="button" class="btn btn-outline-info" disabled title= "Ir para detalhes" (click) = "Detalhe()">Detalhes de um Herói</button>
+          </ng-template>
+          <ng-template #elseTemplate>
+              <button type="button" class="btn btn-outline-info" title= "Ir para detalhes" (click) = "Detalhe()">Detalhes de um Herói</button>
+          </ng-template>
+
+          <button type="button" class="btn btn-outline-danger" title= "Apagar Heróis" (click) = "apagar()">Apagar Heróis</button>
+        </ng-template>
+
+      </p-table>
+
+  </div>
+</div>
